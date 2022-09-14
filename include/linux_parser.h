@@ -26,6 +26,9 @@ int TotalProcesses();
 int RunningProcesses();
 std::string OperatingSystem();
 std::string Kernel();
+template <typename T>
+T GetValue(std::ifstream& stream, const std::string& key);
+long GetLongValue(std::ifstream& stream, const std::string& key);
 
 // CPU
 enum CPUStates {

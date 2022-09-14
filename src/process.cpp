@@ -29,7 +29,7 @@ float Process::CpuUtilization() {
         totalPId -= prevTotalProcess_;
     auto totalCPU = totalSystem;
     if(totalSystem != prevTotalSystem_)
-        totalSystem -= prevTotalSystem_;
+        totalCPU -= prevTotalSystem_;
     prevTotalProcess_=totalProcess;
     prevTotalSystem_=totalSystem;
     cpuUsage_=(float)totalPId/(float)totalCPU;

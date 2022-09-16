@@ -30,19 +30,6 @@ template <typename T>
 T GetValue(std::ifstream& stream, const std::string& key);
 long GetLongValue(std::ifstream& stream, const std::string& key);
 
-// CPU
-enum CPUStates {
-  kUser_ = 0,
-  kNice_,
-  kSystem_,
-  kIdle_,
-  kIOwait_,
-  kIRQ_,
-  kSoftIRQ_,
-  kSteal_,
-  kGuest_,
-  kGuestNice_
-};
 std::vector<std::string> CpuUtilization();
 long Jiffies();
 long ActiveJiffies();

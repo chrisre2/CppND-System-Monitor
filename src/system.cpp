@@ -28,26 +28,15 @@ Processor& System::Cpu() { return cpu_; }
 
 // Return a container composed of the system's processes
 vector<Process>& System::Processes() {
-  auto pids = LinuxParser::Pids();
-  // add process to vector
+  vector<int> pids = LinuxParser::Pids();
+  processes_.clear();
   for (auto& pid : pids) {
-    Process process(pid);
-    if ((std::find(processes_.begin(), processes_.end(), process) ==
-         processes_.end()))
-      processes_.emplace_back(process);
+    if (!LinuxParser::Ram(pid).empty()) {
+      Process process(pid);
+      processes_.push_back(process);
+    }
   }
-  // remove process from vector
-  processes_.erase(std::remove_if(processes_.begin(), processes_.end(),
-                                  [](Process& p1) {
-                                    auto pids = LinuxParser::Pids();
-                                    return (std::find(pids.begin(), pids.end(),
-                                                      p1.Pid()) == pids.end())
-                                               ? true
-                                               : false;
-                                  }),
-                   processes_.end());
-  // sort processes
-  std::stable_sort(processes_.begin(), processes_.end());
+  std::sort(processes_.rbegin(), processes_.rend());
   return processes_;
 }
 
